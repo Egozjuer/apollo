@@ -74,7 +74,17 @@ class SignalEngineError(RuntimeError):
 def build_signal(config: StrategyConfig, history: Dict[str, List[PriceBar]]) -> TradingSignal:
     """Build a trading signal from historical bars keyed by logical symbol."""
 
-    required = ["etp", "sk_hynix", "kospi", "sox", "nvda", "mu", "nasdaq100", "usdkrw"]
+    required = [
+        "etp",
+        "sk_hynix",
+        "sk_hynix_us",
+        "kospi",
+        "sox",
+        "nvda",
+        "mu",
+        "nasdaq100",
+        "usdkrw",
+    ]
     missing = [name for name in required if not history.get(name)]
     if missing:
         raise SignalEngineError(f"missing market data for: {', '.join(missing)}")
@@ -167,6 +177,46 @@ def build_signal(config: StrategyConfig, history: Dict[str, List[PriceBar]]) -> 
         lookback=5,
         points=1,
         description="USD/KRW 5日下行，代表韩元相对走强",
+    )
+    add_daily_return_factor(
+        factors,
+        "sk_hynix_us_overnight_strong",
+        history["sk_hynix_us"],
+        threshold_pct=risk.overnight_sk_hynix_strong_pct,
+        points=2,
+        description="SK海力士美股/ADR隔夜涨幅超过阈值",
+    )
+    add_daily_return_factor(
+        factors,
+        "sox_overnight_strong",
+        history["sox"],
+        threshold_pct=risk.overnight_semis_strong_pct,
+        points=1,
+        description="费城半导体指数隔夜涨幅超过阈值",
+    )
+    add_daily_return_factor(
+        factors,
+        "nvda_overnight_strong",
+        history["nvda"],
+        threshold_pct=risk.overnight_semis_strong_pct,
+        points=1,
+        description="英伟达隔夜涨幅超过阈值",
+    )
+    add_daily_return_factor(
+        factors,
+        "mu_overnight_strong",
+        history["mu"],
+        threshold_pct=risk.overnight_semis_strong_pct,
+        points=1,
+        description="美光隔夜涨幅超过阈值",
+    )
+    add_daily_return_factor(
+        factors,
+        "nasdaq100_overnight_positive",
+        history["nasdaq100"],
+        threshold_pct=risk.overnight_nasdaq_positive_pct,
+        points=1,
+        description="纳斯达克100隔夜上涨",
     )
     add_liquidity_factor(
         factors,
@@ -295,6 +345,20 @@ def add_usdkrw_factor(
     roc = rate_of_change(bars, lookback)
     passed = None if roc is None else roc < 0
     factors.append(FactorResult(name, points if passed else 0, points, passed, roc, description))
+
+
+def add_daily_return_factor(
+    factors: List[FactorResult],
+    name: str,
+    bars: Iterable[PriceBar],
+    threshold_pct: float,
+    points: int,
+    description: str,
+) -> None:
+    daily_return = rate_of_change(bars, 1)
+    threshold = threshold_pct / 100.0
+    passed = None if daily_return is None else daily_return > threshold
+    factors.append(FactorResult(name, points if passed else 0, points, passed, daily_return, description))
 
 
 def add_liquidity_factor(

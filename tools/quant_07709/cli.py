@@ -58,21 +58,30 @@ def demo_history(config: StrategyConfig) -> Dict[str, List[PriceBar]]:
     return {
         "etp": make_bars(start=62.0, drift=0.15, volume=80_000),
         "sk_hynix": make_bars(start=100.0, drift=0.45, volume=1_500_000),
+        "sk_hynix_us": make_bars(start=100.0, drift=0.35, volume=1_500_000, final_jump_pct=10.0),
         "kospi": make_bars(start=100.0, drift=0.12, volume=10_000_000),
-        "sox": make_bars(start=100.0, drift=0.30, volume=2_000_000),
-        "nvda": make_bars(start=100.0, drift=0.35, volume=20_000_000),
-        "mu": make_bars(start=100.0, drift=0.28, volume=10_000_000),
-        "nasdaq100": make_bars(start=100.0, drift=0.18, volume=10_000_000),
+        "sox": make_bars(start=100.0, drift=0.30, volume=2_000_000, final_jump_pct=2.5),
+        "nvda": make_bars(start=100.0, drift=0.35, volume=20_000_000, final_jump_pct=2.5),
+        "mu": make_bars(start=100.0, drift=0.28, volume=10_000_000, final_jump_pct=2.5),
+        "nasdaq100": make_bars(start=100.0, drift=0.18, volume=10_000_000, final_jump_pct=0.8),
         "usdkrw": make_bars(start=1400.0, drift=-0.50, volume=1_000_000),
     }
 
 
-def make_bars(start: float, drift: float, volume: float, length: int = 90) -> List[PriceBar]:
+def make_bars(
+    start: float,
+    drift: float,
+    volume: float,
+    length: int = 90,
+    final_jump_pct: float = 0.0,
+) -> List[PriceBar]:
     bars: List[PriceBar] = []
     price = start
     for index in range(length):
         # Add a tiny deterministic wave so volatility is non-zero.
         price += drift + ((index % 7) - 3) * 0.03
+        if index == length - 1 and final_jump_pct:
+            price *= 1 + final_jump_pct / 100.0
         bars.append(
             PriceBar(
                 timestamp=index,

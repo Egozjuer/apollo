@@ -4,6 +4,7 @@
   "symbols": {
     "etp": "7709.HK",
     "sk_hynix": "000660.KS",
+    "sk_hynix_us": "SKHY",
     "kospi": "^KS11",
     "sox": "^SOX",
     "nvda": "NVDA",
@@ -24,6 +25,9 @@
     "rebound_take_profit_price": 99.0,
     "min_hkd_turnover": 2000000.0,
     "product_nav": null,
-    "max_premium_pct": 3.0
+    "max_premium_pct": 3.0,
+    "overnight_sk_hynix_strong_pct": 5.0,
+    "overnight_semis_strong_pct": 2.0,
+    "overnight_nasdaq_positive_pct": 0.0
   }
 }

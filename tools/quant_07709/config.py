@@ -19,6 +19,7 @@ class SymbolConfig:
 
     etp: str = "7709.HK"
     sk_hynix: str = "000660.KS"
+    sk_hynix_us: str = "SKHY"
     kospi: str = "^KS11"
     sox: str = "^SOX"
     nvda: str = "NVDA"
@@ -37,6 +38,7 @@ class SymbolConfig:
         return {
             "etp": self.etp,
             "sk_hynix": self.sk_hynix,
+            "sk_hynix_us": self.sk_hynix_us,
             "kospi": self.kospi,
             "sox": self.sox,
             "nvda": self.nvda,
@@ -63,6 +65,9 @@ class RiskConfig:
     min_hkd_turnover: float = 2_000_000.0
     product_nav: Optional[float] = None
     max_premium_pct: float = 3.0
+    overnight_sk_hynix_strong_pct: float = 5.0
+    overnight_semis_strong_pct: float = 2.0
+    overnight_nasdaq_positive_pct: float = 0.0
 
     @classmethod
     def from_mapping(cls, data: Mapping[str, Any]) -> "RiskConfig":
