@@ -1,0 +1,13 @@
+services:
+  hk7709-snapshot:
+    build: .
+    image: hk7709-snapshot:latest
+    container_name: hk7709-snapshot
+    restart: unless-stopped
+    ports:
+      - "8770:8770"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "8770"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

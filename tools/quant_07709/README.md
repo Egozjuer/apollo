@@ -39,10 +39,19 @@
 启动：
 
 ```bash
-python3 -m tools.quant_07709.app --host 127.0.0.1 --port 8770
+python3 -m tools.quant_07709.app --host 0.0.0.0 --port 8770
 ```
 
 然后打开 `http://127.0.0.1:8770`。点击刷新会重新抓数；页面也会每 60 秒自动更新。
+
+如果要把看板放到极空间 Docker 上，看 [`NAS_DOCKER.md`](NAS_DOCKER.md)。最短命令：
+
+```bash
+cd tools/quant_07709
+docker compose up -d --build
+```
+
+之后用 `http://极空间IP:8770` 打开。
 
 数据策略：
 
