@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HK7709 Daily Snapshot</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">HK7709 DAILY SNAPSHOT</p>
+      <h1>海力士三市场每日估值</h1>
+      <p class="subtitle">韩国正股 · 美股 ADR · 港股 HK7709</p>
+      <div class="toolbar">
+        <div class="stamp">
+          <span class="stamp-label">截图时间</span>
+          <strong id="generated-at">加载中…</strong>
+        </div>
+        <button id="refresh-btn" type="button">刷新</button>
+      </div>
+    </header>
+
+    <section id="status-bar" class="status-bar" hidden></section>
+
+    <section class="grid" id="card-grid">
+      <article class="card card-hk">
+        <div class="card-head">香港 HK7709 最新价格</div>
+        <div class="card-body">
+          <div class="value" id="hk-price">--</div>
+          <div class="change" id="hk-change">--</div>
+          <div class="meta" id="hk-meta">等待行情</div>
+        </div>
+      </article>
+
+      <article class="card card-nav">
+        <div class="card-head">CSOP 官方 NAV</div>
+        <div class="card-body">
+          <div class="value" id="nav-price">--</div>
+          <div class="change muted" id="nav-premium">HK7709 折溢价 --</div>
+          <div class="meta" id="nav-meta">等待官方净值</div>
+        </div>
+      </article>
+
+      <article class="card card-kr">
+        <div class="card-head">韩国 SK海力士实时价格</div>
+        <div class="card-body">
+          <div class="value" id="kr-price">--</div>
+          <div class="change" id="kr-change">--</div>
+          <div class="meta" id="kr-meta">等待韩国行情</div>
+        </div>
+      </article>
+
+      <article class="card card-theory focus">
+        <div class="card-head">核心关注 理论 NAV</div>
+        <div class="card-body">
+          <div class="value" id="theory-price">--</div>
+          <div class="change muted" id="theory-gap">HK7709 相对理论 NAV 偏离 --</div>
+          <div class="meta" id="theory-meta">按官方净值 + 2×韩国当日涨跌估算</div>
+        </div>
+      </article>
+
+      <article class="card card-us">
+        <div class="card-head">美国 SKHY 昨日收盘</div>
+        <div class="card-body">
+          <div class="value" id="us-price">--</div>
+          <div class="change" id="us-change">--</div>
+          <div class="meta" id="us-meta">等待美股报价</div>
+        </div>
+      </article>
+
+      <article class="card card-adr">
+        <div class="card-head">跨市场 ADR 正式溢价</div>
+        <div class="card-body">
+          <div class="value" id="adr-premium">--</div>
+          <div class="change muted" id="adr-compare">官方价 vs 理论价</div>
+          <div class="meta" id="adr-meta">SKHY = 韩国正股 1/10</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="notes">
+      <h2>风险提示</h2>
+      <ul id="warnings"></ul>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

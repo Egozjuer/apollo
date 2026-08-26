@@ -1,0 +1,33 @@
+{
+  "history_range": "6mo",
+  "history_interval": "1d",
+  "symbols": {
+    "etp": "7709.HK",
+    "sk_hynix": "000660.KS",
+    "sk_hynix_us": "SKHY",
+    "kospi": "^KS11",
+    "sox": "^SOX",
+    "nvda": "NVDA",
+    "mu": "MU",
+    "nasdaq100": "^NDX",
+    "usdkrw": "KRW=X"
+  },
+  "risk": {
+    "cost_basis": 110.0,
+    "current_position_pct": 70.0,
+    "desired_profit_on_cost_pct": 60.0,
+    "max_position_pct": 50.0,
+    "stop_reduce_price": 58.0,
+    "stop_deep_reduce_price": 52.0,
+    "stop_observation_price": 48.0,
+    "rebound_first_reduce_price": 75.0,
+    "rebound_second_reduce_price": 90.0,
+    "rebound_take_profit_price": 99.0,
+    "min_hkd_turnover": 2000000.0,
+    "product_nav": null,
+    "max_premium_pct": 3.0,
+    "overnight_sk_hynix_strong_pct": 5.0,
+    "overnight_semis_strong_pct": 2.0,
+    "overnight_nasdaq_positive_pct": 0.0
+  }
+}
